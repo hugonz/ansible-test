@@ -10,16 +10,19 @@
         all: true
       delegate_to: localhost
       register: todas_suscripciones
-
+      
+    - name: Get facts for all subscriptions, including ones that are disabled.
+      ansible.builtin.debug:
+        var: todas_suscripciones
       # [ sub1, sub2, sub3 ... sub10 ]
 
-    - name: Lista todas las VMS para {{ suscripcion }} 
-      azure.azcollection.azure_rm_vm_info:
-        client_id: "{{ client_id }}"
-        secret: "{{ secret }}"
-        tenant: "{{ tenant }}"
-        suscripcion: "{{ item.subscription_id }}
-      loop: "{{ todas_suscripciones.subscription }}"
+    # - name: Lista todas las VMS para {{ suscripcion }} 
+    #   azure.azcollection.azure_rm_vm_info:
+    #     client_id: "{{ client_id }}"
+    #     secret: "{{ secret }}"
+    #     tenant: "{{ tenant }}"
+    #     suscripcion: "{{ item.subscription_id }}
+    #   loop: "{{ todas_suscripciones.subscription }}"
       
 
 
