@@ -111,12 +111,17 @@
         msg: >-
           {{  hostvars[inventory_hostname] }}
           
+    # - name: Print our evaluation
+    #   ansible.builtin.debug:
+    #     msg: >-
+    #       {{  {'Colorado': 'Rockies', 'Boston': 'Red Sox', 'Minnesota': 'Twins', 'Milwaukee': 'Brewers', 'Seattle': 'Mariners', 'Kansas City': 'Royals'}
+    #       | ansible.utils.remove_keys(target=['Boston','Milwaukee'])  }}
+
     - name: Print our evaluation
       ansible.builtin.debug:
         msg: >-
-          {{  {'Colorado': 'Rockies', 'Boston': 'Red Sox', 'Minnesota': 'Twins', 'Milwaukee': 'Brewers', 'Seattle': 'Mariners', 'Kansas City': 'Royals'}
-          | ansible.utils.remove_keys(target=['Boston','Milwaukee'])  }}
-
+          {{  hostvars[inventory_hostname]
+          | ansible.utils.remove_keys(target=['ansible_check_mode','PATH'])  }}
 
         
     # {{  {"one":1, "two",2} | ansible.utils.remove_keys(target=["one" ] ) }}
