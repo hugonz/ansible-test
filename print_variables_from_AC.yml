@@ -114,7 +114,8 @@
     - name: Print our evaluation
       ansible.builtin.debug:
         msg: >-
-          {{  ["one", "two"] }}
+          {{  {'Colorado': 'Rockies', 'Boston': 'Red Sox', 'Minnesota': 'Twins',
+'Milwaukee': 'Brewers', 'Seattle': 'Mariners', 'Kansas City': 'Royals'}  }}
 
 
         
