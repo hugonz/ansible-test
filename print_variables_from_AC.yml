@@ -3,13 +3,6 @@
   vars:
     # Some variables are always present and by removing them we guarantee we're 
     # left with only actual extra vars passed.
-    original_dict: 
-      one: 1
-      two: 2
-      three: 3
-
-    keys_to_remove:
-      - one
     
     stock_variables: >-
       [ 
@@ -114,7 +107,7 @@
     - name: Print our evaluation
       ansible.builtin.debug:
         msg: >-
-          {{ original_dict | dict((key, value) for key, value in original_dict.items() if key not in keys_to_remove) }}
+          {{  hostvars[inventory_hostname] | remove_keys(target=stock_variables) }}
         
 
       
