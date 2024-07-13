@@ -1,7 +1,14 @@
 - hosts: localhost
   gather_facts: false
+  environment: "{{ hostvars[inventory_host] }}"
   tasks:
-    - name: Print all the structure from all hosts that are in the inventory
+    - name: Get environment
+      ansible.builtin.command:
+        cmd: printenv
+      register: _
+      
+    - name: Print environment
       ansible.builtin.debug:
-        msg: "A host: {{ hostvars[item] }}"
-      loop: "{{ groups.all }}"
+        var: "{{ _.stdout }}"
+
+      
