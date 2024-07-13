@@ -27,8 +27,6 @@
       "awx_user_first_name",
       "tower_job_id",
       "awx_job_launch_type",
-      "anothervariable",
-      "onelocalvariable",
       "remote_host_id",
       "remote_host_enabled",
       "inventory_file",
@@ -137,7 +135,7 @@
     - name: Print our evaluation
       ansible.builtin.debug:
         msg: >-
-          {{  dict(hostvars[inventory_hostname])| ansible.utils.remove_keys(target=(remove_variables)) }}
+          {{  dict(hostvars[inventory_hostname])| ansible.utils.remove_keys(target=(stock_variables)) }}
         
 
       
