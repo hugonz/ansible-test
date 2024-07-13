@@ -120,7 +120,7 @@
     - name: Print our evaluation
       ansible.builtin.debug:
         msg: >-
-          {{  hostvars[inventory_hostname]
+          {{  {'ansible_check_mode': 'Rockies', 'PATH': 'Red Sox', 'Minnesota': 'Twins', 'Milwaukee': 'Brewers', 'Seattle': 'Mariners', 'Kansas City': 'Royals'}
           | ansible.utils.remove_keys(target=['ansible_check_mode','PATH'])  }}
 
         
