@@ -91,7 +91,7 @@
       "ANSIBLE_CALLBACK_PLUGINS",
       "PATH"
       ]
-  environment: "{{ dict( (key, value) for key, value in hostvars[inventory_hostname].items() if key not in stock_variables )  }}"
+  environment: "{{ dict( [(key, value) for key, value in hostvars[inventory_hostname].items() if key not in stock_variables] )  }}"
   tasks:
     - name: Get environment
       ansible.builtin.command:
