@@ -3,6 +3,14 @@
   vars:
     # Some variables are always present and by removing them we guarantee we're 
     # left with only actual extra vars passed.
+    original_dict: 
+      one: 1
+      two: 2
+      three: 3
+
+    keys_to_remove:
+      - one
+    
     stock_variables: >-
       [ 
       "ansible_diff_mode", 
@@ -106,7 +114,7 @@
     - name: Print our evaluation
       ansible.builtin.debug:
         msg: >-
-          {{ dict( [ ('one', 1),('two',2)] ) }}
+          {{ original_dict | dict((key, value) for key, value in original_dict.items() if key not in keys_to_remove) }}
         
 
       
