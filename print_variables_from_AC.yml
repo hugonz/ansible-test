@@ -101,9 +101,12 @@
     # - name: Print environment
     #   ansible.builtin.debug:
     #     var: _.stdout_lines
-        
+    
+    # {{  hostvars[inventory_hostname].items() | dict  }}
     - name: Print our evaluation
       ansible.builtin.debug:
         msg: >-
-          {{  hostvars[inventory_hostname].items() | dict  }}
+          {{ dict( [ ('one': 1),('two': 2)] ) }}
+        
+
       
