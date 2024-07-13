@@ -107,7 +107,7 @@
     - name: Print our evaluation
       ansible.builtin.debug:
         msg: >-
-          {{  hostvars[inventory_hostname] | remove_keys(target=stock_variables) }}
+          {{  hostvars[inventory_hostname] | ansible.utils.remove_keys(target=stock_variables) }}
         
 
       
