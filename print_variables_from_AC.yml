@@ -4,8 +4,7 @@
     # Some variables are always present and by removing them we guarantee we're 
     # left with only actual extra vars passed.
     
-    stock_variables: >-
-      [ 
+    stock_variables: [ 
       "ansible_diff_mode", 
       "groups",
       "tower_job_template_id",
