@@ -114,7 +114,11 @@
     - name: Print our evaluation
       ansible.builtin.debug:
         msg: >-
-          {{  {"one":1, "two",2} | ansible.utils.remove_keys(target=["one" ] ) }}
+          {{  {"one":1, "two",2} }}
+
+
+        
+          # {{  {"one":1, "two",2} | ansible.utils.remove_keys(target=["one" ] ) }}
     
     # - name: Print our evaluation
     #   ansible.builtin.debug:
