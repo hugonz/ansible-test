@@ -9,6 +9,6 @@
       
     - name: Print environment
       ansible.builtin.debug:
-        var: "{{ _.stdout_lines }}"
+        var: _.stdout_lines
 
       
