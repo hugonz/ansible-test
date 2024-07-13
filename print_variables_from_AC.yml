@@ -114,7 +114,7 @@
     - name: Print our evaluation
       ansible.builtin.debug:
         msg: >-
-          {{  {"one":1, "two",2} }}
+          {{  ["one", "two"] }}
 
 
         
