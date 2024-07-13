@@ -119,10 +119,10 @@
     #       {{  {'Colorado': 'Rockies', 'Boston': 'Red Sox', 'Minnesota': 'Twins', 'Milwaukee': 'Brewers', 'Seattle': 'Mariners', 'Kansas City': 'Royals'}
     #       | ansible.utils.remove_keys(target=['Boston','Milwaukee'])  }}
 
-    - name: Print nonstock vars
-      ansible.builtin.debug:
-        msg: >-
-          {{ stock_variables | difference(hostvars[inventory_hostname].keys()) }}
+    # - name: Print nonstock vars
+    #   ansible.builtin.debug:
+    #     msg: >-
+    #       {{  |hostvars[inventory_hostname].keys() difference(stock_variables) }}
 
 
     # - name: Print our evaluation
@@ -134,10 +134,10 @@
         
     # {{  {"one":1, "two",2} | ansible.utils.remove_keys(target=["one" ] ) }}
     
-    # - name: Print our evaluation
-    #   ansible.builtin.debug:
-    #     msg: >-
-    #       {{  hostvars[inventory_hostname] | ansible.utils.remove_keys(target=stock_variables) }}
+    - name: Print our evaluation
+      ansible.builtin.debug:
+        msg: >-
+          {{  hostvars[inventory_hostname] | ansible.utils.remove_keys(target=stock_variables) }}
         
 
       
