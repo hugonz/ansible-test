@@ -1,4 +1,5 @@
 - hosts: localhost
+  gather_fact: false
   tasks:
     - name: Print all the structure from all hosts that are in the inventory
       ansible.builtin.debug:
