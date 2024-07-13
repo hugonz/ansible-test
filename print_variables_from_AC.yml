@@ -106,7 +106,7 @@
     - name: Print our evaluation
       ansible.builtin.debug:
         msg: >-
-          {{ dict( [ ('one': 1),('two': 2)] ) }}
+          {{ dict( [ ('one', 1),('two',2)] ) }}
         
 
       
