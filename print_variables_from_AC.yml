@@ -114,7 +114,12 @@
     - name: Print our evaluation
       ansible.builtin.debug:
         msg: >-
-          {{  hostvars[inventory_hostname] | ansible.utils.remove_keys(target=stock_variables) }}
+          {{  {"one":1, "two",2} | ansible.utils.remove_keys(target=["one" ] ) }}
+    
+    # - name: Print our evaluation
+    #   ansible.builtin.debug:
+    #     msg: >-
+    #       {{  hostvars[inventory_hostname] | ansible.utils.remove_keys(target=stock_variables) }}
         
 
       
