@@ -104,6 +104,13 @@
     #     var: _.stdout_lines
     
     # {{  hostvars[inventory_hostname].items() | dict  }}
+
+
+    - name: Print our evaluation
+      ansible.builtin.debug:
+        msg: >-
+          {{  hostvars[inventory_hostname] }}
+          
     - name: Print our evaluation
       ansible.builtin.debug:
         msg: >-
