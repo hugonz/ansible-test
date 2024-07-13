@@ -110,7 +110,10 @@
       ansible.builtin.debug:
         msg: >-
           {{  hostvars[inventory_hostname] }}
-          
+
+    - name: Print our evaluation
+      ansible.builtin.debug:
+        var: stock_variables    
     # - name: Print our evaluation
     #   ansible.builtin.debug:
     #     msg: >-
