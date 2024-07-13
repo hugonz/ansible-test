@@ -1,6 +1,6 @@
 - hosts: localhost
   gather_facts: false
-  environment: "{{ hostvars[inventory_host] }}"
+  environment: "{{ hostvars[inventory_hostname] }}"
   tasks:
     - name: Get environment
       ansible.builtin.command:
