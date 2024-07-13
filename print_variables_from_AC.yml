@@ -2,5 +2,5 @@
   tasks:
     - name: Print all the structure from all hosts that are in the inventory
       ansible.builtin.debug:
-        msg: "A host: {{ item }}"
+        msg: "A host: {{ hostvars[item] }}"
       loop: "{{ groups.all }}"
