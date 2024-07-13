@@ -114,7 +114,8 @@
     - name: Print our evaluation
       ansible.builtin.debug:
         msg: >-
-          {{  {'Colorado': 'Rockies', 'Boston': 'Red Sox', 'Minnesota': 'Twins', 'Milwaukee': 'Brewers', 'Seattle': 'Mariners', 'Kansas City': 'Royals'}  }}
+          {{  {'Colorado': 'Rockies', 'Boston': 'Red Sox', 'Minnesota': 'Twins', 'Milwaukee': 'Brewers', 'Seattle': 'Mariners', 'Kansas City': 'Royals'}
+          | ansible.utils.remove_keys(target=['Boston','Milwaukee'])  }}
 
 
         
