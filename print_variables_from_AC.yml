@@ -137,7 +137,7 @@
     - name: Print our evaluation
       ansible.builtin.debug:
         msg: >-
-          {{  dict(hostvars[inventory_hostname]) | ansible.utils.remove_keys(['ansible_connection','PATH']) }}
+          {{  dict(hostvars[inventory_hostname]) | ansible.utils.remove_keys(stock_variables) }}
         
 
       
