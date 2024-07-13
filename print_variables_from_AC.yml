@@ -91,15 +91,19 @@
       "ANSIBLE_CALLBACK_PLUGINS",
       "PATH"
       ]
-  environment: "{{ original_dict | dict((key, value) for key, value in hostvars[inventory_hostname].items() if key not in stock_variables) }}"
+  # environment: "{{ original_dict | dict((key, value) for key, value in hostvars[inventory_hostname].items() if key not in stock_variables) }}"
   tasks:
-    - name: Get environment
-      ansible.builtin.command:
-        cmd: printenv
-      register: _
+    # - name: Get environment
+    #   ansible.builtin.command:
+    #     cmd: printenv
+    #   register: _
       
-    - name: Print environment
+    # - name: Print environment
+    #   ansible.builtin.debug:
+    #     var: _.stdout_lines
+        
+    - name: Print our evaluation
       ansible.builtin.debug:
-        var: _.stdout_lines
-
+        msg: >-
+          {{  hostvars[inventory_hostname].items() | dict  }}
       
