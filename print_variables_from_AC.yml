@@ -123,7 +123,7 @@
     - name: Print nonstock vars
       ansible.builtin.debug:
         msg: >-
-          {{  hostvars[inventory_hostname].keys() | difference(stock_variables) }}
+          {{ stock_variables  | difference(hostvars[inventory_hostname].keys()) }}
 
 
     # - name: Print our evaluation
