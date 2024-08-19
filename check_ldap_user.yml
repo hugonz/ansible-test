@@ -1,5 +1,6 @@
 # Check user ldap_user is in organization ldap_org
 - hosts: localhost
+  gather_facts: false
   vars:
     # ldap_user: user8
     # ldap_org: prod
