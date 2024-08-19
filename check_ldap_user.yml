@@ -9,3 +9,5 @@
     - name: Use ldapsearch to fail if user is not in organization
       ansible.builtin.command:
         cmd: ldapsearch -x -H {{ ldap_server_url }} -b uid={{ ldap_user }},ou={{ ldap_org }},dc=example,dc=org -D "cn=admin,dc=example,dc=org" -w admin
+      # ldap_search never maked changes
+      changed_when: false
