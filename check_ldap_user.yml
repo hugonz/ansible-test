@@ -1,7 +1,7 @@
 # Check user ldap_user is in organization ldap_org
 - hosts: localhost
   vars:
-  	# ldap_user: user8
+    # ldap_user: user8
     # ldap_org: prod
     # ldap_server_url: 'ldap://192.168.122.104:8389'
   tasks:
