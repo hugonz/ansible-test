@@ -9,8 +9,7 @@
 
   rules:
     - name: Print contents
-      # condition: event.payload.message == "Ansible is super cool!"
-      condition: true
+      condition: event.payload.message == "Ansible is super cool!"
       action:
         debug:
           var: event
