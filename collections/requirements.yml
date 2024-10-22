@@ -1,4 +1,5 @@
-collections:
-  - name: azure.azcollection
-  - name: ansible.utils
+# collections:
+#   - name: azure.azcollection
+#   - name: ansible.utils
   
+# 
