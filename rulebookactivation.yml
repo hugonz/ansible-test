@@ -10,12 +10,8 @@
 
  ## Define rules with conditions and actions
   rules:
-    - name: If sender is galoisio, executet job template OK
-      condition: event.payload.sender == "galoisio"
+    - name: Alwys debug
+      condition: true
       action:
-        ## - run_job_template:
-        ##    name: jt-dd-wh7000-ok
-        ##   organization: "Default"
         debug:
-          msg:
-            - "id
+          msg: "{{ event }}"
