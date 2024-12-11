@@ -3,4 +3,4 @@
   tasks:
     - name: Print something
       ansible.builtin.debug:
-        msg: "{{ mensaje_humano | default("no hay mensaje") }}"
+        msg: "{{ mensaje_humano | default('no hay mensaje') }}"
