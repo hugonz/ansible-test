@@ -1,0 +1,12 @@
+- hosts: localhost
+  gather_facts: false
+  tasks: 
+    - name: Get facts for all subscriptions, including ones that are disabled.
+      azure.azcollection.azure_rm_subscription_info:
+        all: true
+      delegate_to: localhost
+      register: todas_suscripciones
+      
+    - name: Get facts for all subscriptions, including ones that are disabled.
+      ansible.builtin.debug:
+        var: todas_suscripciones
