@@ -1,6 +1,7 @@
-- hosts: all:localhost
+- hosts: all
   become: true
   tasks:
-    - name: Print something
-      ansible.builtin.debug:
-        msg: "{{ mensaje_humano | default('no hay mensaje') }}"
+    - name: Patch all packages
+      ansible.builtin.dnf:
+        name: '*'
+        state: latest
