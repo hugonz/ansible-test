@@ -1,7 +1,29 @@
 - hosts: all
   become: true
   tasks:
+
+    - name: Gather pre-patch package facts
+      ansible.builtin.package_facts:
+        manager: auto
+
+    - name: Show all packages with information
+      ansible.builtin.debug:
+        var: ansible_facts.packages
+        
+    - name: Dry run patch all packages
+      ansible.builtin.dnf:
+        name: '*'
+        state: latest
+        check_mode: true
+      register: candidates
+
+    - name: Show candidates
+      ansible.builtin.debug:
+        var: candidates
+        
     - name: Patch all packages
       ansible.builtin.dnf:
         name: '*'
         state: latest
+      tags:
+        - never
