@@ -10,11 +10,9 @@
       ansible.builtin.debug:
         var: ansible_facts.packages
         
-    - name: Dry run patch all packages
-      ansible.builtin.dnf:
-        name: '*'
-        state: latest
-        check_mode: true
+    - name: Check packages to upgrade
+      asible.builtin.dnf:
+        list: updates
       register: candidates
 
     - name: Show candidates
@@ -26,4 +24,4 @@
         name: '*'
         state: latest
       tags:
-        - never
+        - install
