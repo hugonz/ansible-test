@@ -11,7 +11,7 @@
         var: ansible_facts.packages
         
     - name: Check packages to upgrade
-      asible.builtin.dnf:
+      ansible.builtin.dnf:
         list: updates
       register: candidates
 
