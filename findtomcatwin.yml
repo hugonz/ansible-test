@@ -1,0 +1,37 @@
+---
+- name: Detect Tomcat on Windows servers
+  hosts: windows
+  gather_facts: no
+
+  tasks:
+
+    - name: Check for Tomcat service
+      ansible.windows.win_service_info:
+        name: "*tomcat*"
+      register: tomcat_service
+
+    - name: Show Tomcat services found
+      ansible.builtin.debug:
+        msg: "Tomcat service detected: {{ item.name }}"
+      loop: "{{ tomcat_service.services }}"
+      when: tomcat_service.services | length > 0
+
+    - name: Check for Tomcat process
+      ansible.windows.win_shell: |
+        Get-Process | Where-Object {$_.ProcessName -like "*tomcat*"}
+      register: tomcat_process
+      changed_when: false
+
+    - name: Display Tomcat process result
+      debug:
+        var: tomcat_process.stdout
+
+    - name: Check common Tomcat installation directories
+      ansible.windows.win_stat:
+        path: "C:\\Program Files\\Apache Software Foundation"
+      register: tomcat_dir
+
+    - name: Display installation directory result
+      debug:
+        msg: "Tomcat installation directory exists"
+      when: tomcat_dir.stat.exists
