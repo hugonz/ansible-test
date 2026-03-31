@@ -1,0 +1,13 @@
+- hosts: localhost
+  gather_facts: false
+  tasks:
+    - name: Get an existing VirtualMachine
+      redhat.openshift_virtualization.kubevirt_vm_info:
+        name: "{{ machine_name }}"
+        namespace: dap
+      register: default_testvm
+    
+    - name: Print VM info
+      ansible.builtin.debug:
+        var: default_testvm
+  
