@@ -2,7 +2,7 @@
 - name: Listen for events on a webhook
   hosts: localhost
   sources:
-    - ansible.eda.webhook:
+    - eda.builtin.webhook:
         host: 0.0.0.0
         port: 7000
  ## Define rules with conditions and actions
