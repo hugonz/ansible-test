@@ -10,8 +10,8 @@
 
  ## Define rules with conditions and actions
   rules:
-    - name: Alwys debug
+    - name: Always debug
       condition: true
-      action:
-        debug:
-          msg: "{{ event }}"
+      action: 
+        - print_event:
+            pretty: true        
