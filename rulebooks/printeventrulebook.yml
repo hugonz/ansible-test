@@ -10,5 +10,5 @@
     - name: Always debug
       condition: true
       action: 
-        - print_event:
-            pretty: true        
+        print_event:
+          pretty: true        
