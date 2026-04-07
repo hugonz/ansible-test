@@ -9,4 +9,11 @@
     - name: Print VM info
       ansible.builtin.debug:
         var: vm_information
-  
+
+    - name: Get a list of all VirtualMachinesInstances
+      redhat.openshift_virtualization.kubevirt_vmi_info:
+      register: vmi_list
+
+    - name: Print VM instance info
+      ansible.builtin.debug:
+        var: vmi_list
