@@ -1,13 +1,12 @@
-- name: Report on one VM
+- name: Report on all VMs
   hosts: localhost
   gather_facts: false
   tasks:
-    - name: Get an existing VirtualMachine
+    - name: Get all existing VirtualMachines
       redhat.openshift_virtualization.kubevirt_vm_info:
-         name: "{{ machine_name }}"
-      register: default_testvm
+      register: vm_information
 
     - name: Print VM info
       ansible.builtin.debug:
-        var: default_testvm
+        var: vm_information
   
