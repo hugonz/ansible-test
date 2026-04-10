@@ -16,6 +16,8 @@
           vm.kubevirt.io/template.namespace: openshift
           vm.kubevirt.io/template.revision: '1'
           vm.kubevirt.io/template.version: v0.34.1
+        
+        # These are valid top-level module parameters
         run_strategy: RerunOnFailure
         data_volume_templates:
           - metadata:
@@ -29,61 +31,63 @@
                 resources:
                   requests:
                     storage: 30Gi
-        template:
-          metadata:
-            labels:
-              kubernetes_vmi_label_app: demo-app  
-              kubevirt.io/domain: rhel9-ansible-clone
-              kubevirt.io/size: small
-              network.kubevirt.io/headlessService: headless
-            annotations:
-              vm.kubevirt.io/flavor: small
-              vm.kubevirt.io/os: rhel9
-              vm.kubevirt.io/workload: server
-          spec:
-            architecture: amd64
-            terminationGracePeriodSeconds: 180
-            domain:
-              cpu:
-                cores: 1
-                sockets: 1
-                threads: 1
-              memory:
-                guest: 2Gi
-              machine:
-                type: pc-q35-rhel9.6.0
-              features:
-                acpi: {}
-                smm:
-                  enabled: true
-              firmware:
-                bootloader:
-                  efi: {}
-              devices:
-                rng: {}
-                interfaces:
-                  - name: default
-                    model: virtio
-                    masquerade: {}
-                disks:
-                  - name: rootdisk
-                    bootOrder: 1
-                    disk:
-                      bus: virtio
-                  - name: cloudinitdisk
-                    disk:
-                      bus: virtio
-            networks:
-              - name: default
-                pod: {}
-            volumes:
-              - name: rootdisk
-                dataVolume:
-                  name: rhel9-ansible-clone
-              - name: cloudinitdisk
-                cloudInitNoCloud:
-                  userData: |-
-                    #cloud-config
-                    user: cloud-user
-                    password: iig0-5bj2-m7mw
-                    chpasswd: { expire: False }
+        
+        # The template MUST be nested under 'spec'
+        spec:
+          template:
+            metadata:
+              labels:
+                kubevirt.io/domain: rhel9-ansible-clone
+                kubevirt.io/size: small
+                network.kubevirt.io/headlessService: headless
+              annotations:
+                vm.kubevirt.io/flavor: small
+                vm.kubevirt.io/os: rhel9
+                vm.kubevirt.io/workload: server
+            spec:
+              architecture: amd64
+              terminationGracePeriodSeconds: 180
+              domain:
+                cpu:
+                  cores: 1
+                  sockets: 1
+                  threads: 1
+                memory:
+                  guest: 2Gi
+                machine:
+                  type: pc-q35-rhel9.6.0
+                features:
+                  acpi: {}
+                  smm:
+                    enabled: true
+                firmware:
+                  bootloader:
+                    efi: {}
+                devices:
+                  rng: {}
+                  interfaces:
+                    - name: default
+                      model: virtio
+                      masquerade: {}
+                  disks:
+                    - name: rootdisk
+                      bootOrder: 1
+                      disk:
+                        bus: virtio
+                    - name: cloudinitdisk
+                      disk:
+                        bus: virtio
+              networks:
+                - name: default
+                  pod: {}
+              volumes:
+                - name: rootdisk
+                  dataVolume:
+                    name: rhel9-ansible-clone
+                - name: cloudinitdisk
+                  cloudInitNoCloud:
+                    userData: |-
+                      #cloud-config
+                      user: cloud-user
+                      password: iig0-5bj2-m7mw
+                      chpasswd: { expire: False }
