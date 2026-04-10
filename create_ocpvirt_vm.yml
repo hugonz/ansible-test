@@ -34,6 +34,7 @@
         # The template MUST be nested under 'spec'
         spec:
           template:
+            runStrategy: RerunOnFailure
             spec:
               architecture: amd64
               terminationGracePeriodSeconds: 180
