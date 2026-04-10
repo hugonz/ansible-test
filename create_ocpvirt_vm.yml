@@ -11,6 +11,7 @@
         namespace: dap
         labels:
           app: rhel9-ansible-clone
+          kubernetes_vmi_label_app: demo-app
           kubevirt.io/dynamic-credentials-support: 'true'
           vm.kubevirt.io/template: rhel9-server-small
           vm.kubevirt.io/template.namespace: openshift
