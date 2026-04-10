@@ -31,19 +31,9 @@
                 resources:
                   requests:
                     storage: 30Gi
-        
         # The template MUST be nested under 'spec'
         spec:
           template:
-            metadata:
-              labels:
-                kubevirt.io/domain: rhel9-ansible-clone
-                kubevirt.io/size: small
-                network.kubevirt.io/headlessService: headless
-              annotations:
-                vm.kubevirt.io/flavor: small
-                vm.kubevirt.io/os: rhel9
-                vm.kubevirt.io/workload: server
             spec:
               architecture: amd64
               terminationGracePeriodSeconds: 180
@@ -91,3 +81,12 @@
                       user: cloud-user
                       password: iig0-5bj2-m7mw
                       chpasswd: { expire: False }
+            metadata:
+              labels:
+                kubevirt.io/domain: rhel9-ansible-clone
+                kubevirt.io/size: small
+                network.kubevirt.io/headlessService: headless
+              annotations:
+                vm.kubevirt.io/flavor: small
+                vm.kubevirt.io/os: rhel9
+                vm.kubevirt.io/workload: server
