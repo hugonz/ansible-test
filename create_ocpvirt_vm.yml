@@ -9,6 +9,7 @@
       name: my-vm
       namespace: dap
       run_strategy: Always
+      wait: true
       data_volume_templates:
         - metadata:
             name: my-vm-rootdisk
