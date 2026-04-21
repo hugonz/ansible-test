@@ -23,6 +23,8 @@
 
     - name: Get list of all vms, sorted
       ansible.builtin_set_fact:
+        #vm_list: "vm_information.resources[].name"
+        vm_list: "vm_information.resources | selectattr('name') | sort"
         
 
     - name: Calcula si hace falta crear o borrar máquinas
