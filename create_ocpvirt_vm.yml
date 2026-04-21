@@ -1,38 +1,44 @@
-redhat.openshift_virtualization.kubevirt_vm:
-  state: present
-  name: testvm-rhel9
-  namespace: dap
-  run_strategy: Always
-  data_volume_templates:
-    - metadata:
-        name: my-vm-rootdisk        # you must name this
-      spec:
-        sourceRef:
-          kind: DataSource
-          name: rhel9
-          namespace: openshift-virtualization-os-images
-        storage:
-          resources:
-            requests:
-              storage: 30Gi         # storageClass inferred from StorageProfile
-  spec:
-    template:
-      spec:
-        domain:
-          memory:
-            guest: 2Gi              # CPU defaults to 1 socket/1 core/1 thread
-          devices:
-            disks:
-              - name: rootdisk
-                disk:
-                  bus: virtio
-            interfaces:
-              - name: default
-                masquerade: {}
-        networks:
-          - name: default
-            pod: {}
-        volumes:
-          - name: rootdisk
-            dataVolume:
-              name: my-vm-rootdisk  # must match data_volume_templates name above
+---
+- name: Create KubeVirt VM clone
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  tasks:
+    - redhat.openshift_virtualization.kubevirt_vm:
+        state: present
+        name: testvm-rhel9
+        namespace: dap
+        run_strategy: Always
+        data_volume_templates:
+          - metadata:
+              name: my-vm-rootdisk        # you must name this
+            spec:
+              sourceRef:
+                kind: DataSource
+                name: rhel9
+                namespace: openshift-virtualization-os-images
+              storage:
+                resources:
+                  requests:
+                    storage: 30Gi         # storageClass inferred from StorageProfile
+        spec:
+          template:
+            spec:
+              domain:
+                memory:
+                  guest: 2Gi              # CPU defaults to 1 socket/1 core/1 thread
+                devices:
+                  disks:
+                    - name: rootdisk
+                      disk:
+                        bus: virtio
+                  interfaces:
+                    - name: default
+                      masquerade: {}
+              networks:
+                - name: default
+                  pod: {}
+              volumes:
+                - name: rootdisk
+                  dataVolume:
+                    name: my-vm-rootdisk  # must match data_volume_templates name above
