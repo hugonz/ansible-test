@@ -1,0 +1,81 @@
+---
+- name: Create KubeVirt VM clone
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  vars:
+    # scale_direction: 'up'
+    # scale_direction: 'down'
+    min_vms: 1
+    max_vms: 5
+
+    app: dummy
+
+    # By convention
+    # vm-app-## arrancando en 01
+      
+  tasks:
+      # Find out how many VMS are up
+    - name: Get all existing VirtualMachines
+      redhat.openshift_virtualization.kubevirt_vm_info:
+        # TODO Filtrar by tag app: nombre del app
+      register: vm_information
+
+    - name: Get list of all vms, sorted
+      ansible.builtin_set_fact:
+        
+
+    - name: Calcula si hace falta crear o borrar máquinas
+      ansible.builtin.set_fact:
+        action_needed: "{{ true if (len(vm_information) > 1 && len(vm_information) < 5) else false }}" 
+      
+  - name: Crea VM 
+    when: action_needed and scale_direction =='up'
+    redhat.openshift_virtualization.kubevirt_vm:
+      state: present
+      name: my-vm{{ len(vm_information) + 1 }}
+      namespace: dap
+      run_strategy: Always
+      data_volume_templates:
+        - metadata:
+            name: my-vm-rootdisk
+          spec:
+            sourceRef:
+              kind: DataSource
+              name: rhel9
+              namespace: openshift-virtualization-os-images
+            storage:
+              resources:
+                requests:
+                  storage: 30Gi
+      spec:
+        template:
+          metadata: {}        # ← added before spec
+        domain:
+          memory:
+            guest: 2Gi
+          devices:
+            disks:
+              - name: rootdisk
+                disk:
+                  bus: virtio
+            interfaces:
+              - name: default
+                masquerade: {}
+        networks:
+          - name: default
+            pod: {}
+        volumes:
+          - name: rootdisk
+            dataVolume:
+              name: my-vm-rootdisk
+              
+  - name: Borra VMs
+    when: action_needed and scale_direction =='down'
+    redhat.openshift_virtualization.kubevirt_vm:
+      state: absent
+      name: "{{ vm_information[-1] }}"
+      namespace: dap
+
+
+      
