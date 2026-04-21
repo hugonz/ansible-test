@@ -1,92 +1,38 @@
----
-- name: Create KubeVirt VM clone
-  hosts: localhost
-  connection: local
-  gather_facts: false
-  tasks:
-    - name: Ensure the cloned RHEL 9 VM is present
-      redhat.openshift_virtualization.kubevirt_vm:
-        state: present
-        name: rhel9-ansible-clone
-        namespace: dap
-        labels:
-          app: rhel9-ansible-clone
-          kubevirt.io/dynamic-credentials-support: 'true'
-          vm.kubevirt.io/template: rhel9-server-small
-          vm.kubevirt.io/template.namespace: openshift
-          vm.kubevirt.io/template.revision: '1'
-          vm.kubevirt.io/template.version: v0.34.1
-
-        # These are valid top-level module parameters
-        run_strategy: RerunOnFailure
-        data_volume_templates:
-          - metadata:
-              name: rhel9-ansible-clone
-            spec:
-              sourceRef:
-                kind: DataSource
-                name: rhel9
-                namespace: openshift-virtualization-os-images
-              storage:
-                resources:
-                  requests:
-                    storage: 30Gi
-        # The template MUST be nested under 'spec'
-        spec:
-          template:
-            spec:
-              architecture: amd64
-              terminationGracePeriodSeconds: 180
-              domain:
-                cpu:
-                  cores: 1
-                  sockets: 1
-                  threads: 1
-                memory:
-                  guest: 2Gi
-                machine:
-                  type: pc-q35-rhel9.6.0
-                features:
-                  acpi: {}
-                  smm:
-                    enabled: true
-                firmware:
-                  bootloader:
-                    efi: {}
-                devices:
-                  rng: {}
-                  interfaces:
-                    - name: default
-                      model: virtio
-                      masquerade: {}
-                  disks:
-                    - name: rootdisk
-                      bootOrder: 1
-                      disk:
-                        bus: virtio
-                    - name: cloudinitdisk
-                      disk:
-                        bus: virtio
-              networks:
-                - name: default
-                  pod: {}
-              volumes:
-                - name: rootdisk
-                  dataVolume:
-                    name: rhel9-plum-sloth-73
-                - name: cloudinitdisk
-                  cloudInitNoCloud:
-                    userData: |-
-                      #cloud-config
-                      user: cloud-user
-                      password: iig0-5bj2-m7mw
-                      chpasswd: { expire: False }
-            metadata:
-              labels:
-                kubevirt.io/domain: rhel9-ansible-clone
-                kubevirt.io/size: small
-                network.kubevirt.io/headlessService: headless
-              annotations:
-                vm.kubevirt.io/flavor: small
-                vm.kubevirt.io/os: rhel9
-                vm.kubevirt.io/workload: server
+redhat.openshift_virtualization.kubevirt_vm:
+  state: present
+  name: testvm-rhel9
+  namespace: dap
+  run_strategy: Always
+  data_volume_templates:
+    - metadata:
+        name: my-vm-rootdisk        # you must name this
+      spec:
+        sourceRef:
+          kind: DataSource
+          name: rhel9
+          namespace: openshift-virtualization-os-images
+        storage:
+          resources:
+            requests:
+              storage: 30Gi         # storageClass inferred from StorageProfile
+  spec:
+    template:
+      spec:
+        domain:
+          memory:
+            guest: 2Gi              # CPU defaults to 1 socket/1 core/1 thread
+          devices:
+            disks:
+              - name: rootdisk
+                disk:
+                  bus: virtio
+            interfaces:
+              - name: default
+                masquerade: {}
+        networks:
+          - name: default
+            pod: {}
+        volumes:
+          - name: rootdisk
+            dataVolume:
+              name: my-vm-rootdisk  # must match data_volume_templates name above
