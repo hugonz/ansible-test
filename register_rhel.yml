@@ -1,0 +1,10 @@
+---
+- name: Registering system with username and password
+  hosts: all
+  vars:
+    rhc_auth:
+      login:
+        username: "{{ console_username }}"
+        password: "{{ console_password }}"
+  roles:
+    - role: rhel-system-roles.rhc
