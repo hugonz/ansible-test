@@ -7,4 +7,4 @@
         username: "{{ console_username }}"
         password: "{{ console_password }}"
   roles:
-    - role: rhel-system-roles.rhc
+    - role: redhat.rhel_system_roles.rhc
